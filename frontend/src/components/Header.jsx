@@ -1,8 +1,20 @@
-import React from 'react'
+import { useContext } from 'react'
 import Button from './Button'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { AutContext } from '../AutProvider'
 
 const Header = () => {
+
+  const {isLoggedIn, setIsLoggedIn} = useContext(AutContext)
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
+    setIsLoggedIn(false)
+    navigate('/login')
+
+  }
+
   return (
     <>
       <nav className="navbar bg-primary border-bottom border-body navbar-expand-lg" data-bs-theme="dark">
@@ -20,14 +32,23 @@ const Header = () => {
                 <span className="navbar-text">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="/">Home</a>
+                            <a className="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
                         </li>
-                        <li className="nav-item">
+                        {isLoggedIn?(
+                            <li className="nav-item">
+                                <button className="btn btn-danger" onClick={handleLogout} >Logout</button>
+                            </li>
+                        ):(
+                            <>
+                            <li className="nav-item">
                             <Button text='Login' class="btn-primary" url="/login" />
-                        </li>
-                        <li className="nav-item">
-                            <Button text='Register'  class="btn-primary" url="/register" />
-                        </li>
+                            </li>
+                            <li className="nav-item">
+                                <Button text='Register'  class="btn-primary" url="/register" />
+                            </li>
+                            </>
+                        )}
+                        
                     </ul>
                 </span>
             </div>

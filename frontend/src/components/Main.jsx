@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Button from './Button'
+// import axiosInstance from './axiosinstance'
 
 const Main = () => {
+
   return (
     <>
     
@@ -13,7 +15,7 @@ const Main = () => {
             <div className="card-body">
                 <h5 className="card-title">Special title treatment</h5>
                 <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <Button text="Login" class="btn-outline-info" url="/" />
+                <Button text="Explore Now" class="btn-outline-info" url="/dashboard" />
             </div>
         </div>
     </div>
